@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>割り勘計算機</title>
+</head>
+<body>
+  <h2>割り勘計算機</h2>
+  金額（　円　）:<input id="total" type="text"><br>
+  偉い人（人数）:<input id="erai" type="text"><br>
+  平社員（人数）:<input id="hira" type="text"><br>
+  新　人（人数）:<input id="shin" type="text"><br>
+  幹　事（一人）:<br>
+  <button id="button" onclick="warikanKeisan()">計算</button>
+  <h2 id="warikan">割り勘額は？</h2>
+  <script>
+    function $(id){
+      return document.getElementById(id);
+    }
+    function warikanKeisan(){
+      let total = parseInt($("total").value);
+      let erai = parseInt($("erai").value);
+      let hira = parseInt($("hira").value);
+      let shin = parseInt($("shin").value);
+      let kanj = 2;
+      let base = Math.floor(total / (erai * 3 + hira * 2 + shin + kanj));
+      let mErai = (erai == 0) ? 0 : (Math.ceil(base * 3 / 100) * 100);
+      let mHira = (hira == 0) ? 0 : (Math.ceil(base * 2 / 100) * 100);
+      let mShin = (shin == 0) ? 0 : (Math.ceil(base * 1 / 100) * 100);
+      let mKanj = base * kanj;
+      let total2 = mErai * erai + mHira * hira + mShin * shin + mKanj;
+      mKanj = mKanj - (total2 - total);
+      $("warikan").innerHTML =
+        "偉い人は" + mErai + "円<br>" +
+        "平社員は" + mHira + "円<br>" +
+        "新　人は" + mShin + "円<br>" +
+        "幹　事は" + mKanj + "円";
+    }
+  </script>
+</body>
+</html>
